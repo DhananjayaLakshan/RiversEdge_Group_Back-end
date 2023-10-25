@@ -23,7 +23,7 @@ router.post("/addPackage", uploadMiddleware.uploadSingle, async (req, res) => {
 
         await newPackage.save()
 
-        res.send('New Package Added Successfully')
+        res.send('New Package is Added Successfully')
 
     } catch (error) {
         return res.status(400).json({ error })
