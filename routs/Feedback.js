@@ -37,4 +37,20 @@ router.route("/display").get((req,res) => {
 
 // {    http://localhost:5000/api/feedback/display       }
 
+router.post("/getFeedbackByName", async (req, res) => {
+
+    const firstName = req.body.firstName
+
+    try {
+        const feedBack = await cus_feed.find({ firstName: firstName })//it brings all rooms in mongoDB
+        res.send(feedBack)//if it success send rooms object
+        
+        console.log(feedBack);
+
+    } catch (error) {
+        return res.status(400).json({ message: error })
+    }
+
+})
+
 module.exports = router
