@@ -4,7 +4,13 @@ const User = require("../models/user")
 
 router.post("/register", async(req,res) => {
     //get name,email,password from url
-    const newUser = new User({name : req.body.name, email: req.body.email, password: req.body.password})
+    const newUser = new User({
+        firstName:      req.body.firstName, 
+        lastName:       req.body.lastName,
+        phoneNumber:    req.body.phoneNumber,
+        email:          req.body.email, 
+        password:       req.body.password
+    })
 
     try {
         const user = await newUser.save()
@@ -25,7 +31,9 @@ try {
 
         //filter result while fetching details except password
         const temp = {
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
             email: user.email,
             isAdmin: user.isAdmin,
             _id: user._id,
