@@ -4,6 +4,9 @@ require("dotenv").config()
 
 const app = express()
 
+app.get('/', (req, res) => {
+    res.send('ITP Backend API Running');
+});
 
 
 //set path to route
@@ -15,14 +18,14 @@ const packageRoute  = require('./routs/packagesRoute')
 const serviceRoute  = require('./routs/servicesRoute')
 
 //Utility Payment
-const Payment = require('./Utility/models/paymentModel');
-const paymentRoutes = require('./Utility/routes/paymentRoute');
+const Payment = require('./Utility/models/paymentModel')
+const paymentRoutes = require('./Utility/routes/paymentRoute')
 
 //Event Management
-const Events = require('./Events/EventModules/eventModule');
-const EventRout = require('./Events/EventRouts/eventRout');
+const Events = require('./Events/EventModules/eventModule')
+const EventRout = require('./Events/EventRouts/eventRout')
 const Res = require('./Events/EventModules/resModel')
-const ResRout = require('./Events/EventRouts/resRout');
+const ResRout = require('./Events/EventRouts/resRout')
 
 //receve para in body
 app.use(express.json())
@@ -38,6 +41,14 @@ app.use('/api/service', serviceRoute)
 app.use("/api/addPayment", paymentRoutes)
 app.use('/api/event',EventRout)
 app.use("/api/eventres" , ResRout)
+
+app.use('/employee', require('./routs/employee.route'));
+app.use('/inventory', require('./routs/inventory.route'));
+app.use('/inventoryOrders', require('./routs/inventoryOrders.route'));
+app.use('/customer', require('./routs/customer.route'));
+app.use('/customerFeedback', require('./routs/customerFeedback.route'));
+app.use('/leave', require('./routs/leave.route'));
+app.use('/user', require('./routs/user.route'));
 
 const port = process.env.PORT || 5000
 
