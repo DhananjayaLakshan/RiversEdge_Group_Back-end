@@ -59,5 +59,59 @@ router.get("/getallusers" , async(req,res) => {
     }
 })
 
+
+router.post("/getUserById", async (req, res) => {
+
+    const userid = req.body.userid
+
+    try {
+        const user = await User.findOne({ _id: userid })//it brings all rooms in mongoDB
+        res.send(user)//if it success send rooms object
+        
+    } catch (error) {
+        return res.status(400).json({ message: error })
+    }
+
+})
+
+router.put("/updateUser/:userid", async (req,res) => {
+
+    try {
+        const userId = req.params.userid
+        const { firstName, lastName, phoneNumber, email, password } = req.body
+        
+        
+
+        // Construct the update object with provided data
+        const updateData = {
+                firstName,
+                lastName,
+                phoneNumber,
+                email,
+                password, 
+        }
+
+        console.log(updateData);
+
+        // Use a database library (e.g., Mongoose) to update the room in the database
+        const updateUser = await User.findByIdAndUpdate(
+            userId,
+            updateData,
+            { new: true } // This ensures that the updated room is returned
+        )
+
+    if (!updateUser) {
+            return res.status(404).json({ error: 'Room not found.' })
+        }
+
+        res.json(updateUser)
+        
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Failed to update Room.' })
+    }
+})
+
+
 module.exports = router
 
