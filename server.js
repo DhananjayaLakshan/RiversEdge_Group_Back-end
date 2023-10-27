@@ -16,6 +16,7 @@ const usersRoute    = require('./routs/userRoute')
 const bookingRoute  = require('./routs/bookingsRoute')
 const packageRoute  = require('./routs/packagesRoute')
 const serviceRoute  = require('./routs/servicesRoute')
+const feedbacks = require('./routs/Feedback')
 
 //Utility Payment
 const Payment = require('./Utility/models/paymentModel')
@@ -41,6 +42,7 @@ app.use('/api/service', serviceRoute)
 app.use("/api/addPayment", paymentRoutes)
 app.use('/api/event',EventRout)
 app.use("/api/eventres" , ResRout)
+app.use('/api/feedback',feedbacks)
 
 app.use('/employee', require('./routs/employee.route'));
 app.use('/inventory', require('./routs/inventory.route'));
