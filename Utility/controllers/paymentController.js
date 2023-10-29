@@ -27,7 +27,7 @@ const getPayment = async (req, res) => {
     try {
         const { id } = req.params;
         const payment = await Payment.findById(id);
-        if (!payment) return res.status(404).json({ message: 'Payment not found' });
+        if (!payment) return res.status(404).json({ message: 'Payment not found!' });
         res.status(200).json(payment);
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -40,8 +40,8 @@ const delPayment = async (req, res) => {
     try {
         const { id } = req.params;
         const payment = await Payment.findByIdAndDelete(id);
-        if (!payment) return res.status(404).json({ message: 'Payment not found' });
-        res.status(200).json({ message: 'Payment deleted successfully' });
+        if (!payment) return res.status(404).json({ message: 'Payment not found!' });
+        res.status(200).json({ message: 'Payment deleted successfully!' });
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -60,7 +60,7 @@ const upPayment = async (req, res) => {
             runValidators: true
         }
         )
-        if (!payment) return res.status(404).json({ message: 'Payment not found' });
+        if (!payment) return res.status(404).json({ message: 'Payment not found!' });
         res.status(200).json(payment);
 
     } catch (error) {
