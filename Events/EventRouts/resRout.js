@@ -59,4 +59,24 @@ router.route("/delete/:id").delete(async(req,res) => {
 })
 
 
+
+//router for get by user id
+
+router.post('/getresbyusername', async (req, res) => {
+    const { username } = req.body;
+
+    try {
+        const restaurants = await Res.find({ userName: username });
+
+        if (restaurants.length === 0) {
+            return res.status(404).json({ message: 'No restaurants found for the provided username.' });
+        }
+
+        res.status(200).json(restaurants);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred while fetching restaurants.' });
+    }
+});
+
 module.exports = router

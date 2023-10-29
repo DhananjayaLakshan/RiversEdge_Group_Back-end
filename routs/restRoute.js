@@ -4,7 +4,7 @@ const Res = require("../models/rest");
 
 
 //router for data insert
-router.post("/addevent" , async (req , res) => {
+router.post("/addevent", async (req, res) => {
     //get All parameters from url
 
     const userName = req.body.userName;
@@ -32,7 +32,7 @@ router.post("/addevent" , async (req , res) => {
 
 //router for display data
 
-router.route("/display").get((req,res) => {
+router.route("/display").get((req, res) => {
     Res.find().then((Ress) => {
         res.json(Ress);
     }).catch((err) => {
@@ -42,21 +42,40 @@ router.route("/display").get((req,res) => {
 
 // router for delete event
 
-router.route("/delete/:id").delete(async(req,res) => {
+router.route("/delete/:id").delete(async (req, res) => {
     try {
-        
+
         //getthig id from the url
         let id = req.params.id;
 
         await Res.findByIdAndDelete(id);
-        res.status(200).send({ status  : "Event Deleted"});
+        res.status(200).send({ status: "Event Deleted" });
 
     } catch (error) {
-        
+
         console.log(error);
-        res.status(500).send({ status : "Internal Server Error"})
+        res.status(500).send({ status: "Internal Server Error" })
     }
 })
+
+// router for get by user id
+
+router.post('/getresbyusername', async (req, res) => {
+    const { username } = req.body.username;
+
+    try {
+        const restaurants = await Res.find({ userName: username });
+
+        if (restaurants.length === 0) {
+            return res.status(404).json({ message: 'No restaurants found for the provided username.' });
+        }
+
+        res.status(200).json(restaurants);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred while fetching restaurants.' });
+    }
+});
 
 
 module.exports = router

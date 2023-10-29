@@ -28,6 +28,11 @@ const EventRout = require('./Events/EventRouts/eventRout')
 const Res = require('./Events/EventModules/resModel')
 const ResRout = require('./Events/EventRouts/resRout')
 
+//for Order managenent
+const Foods = require("./routs/foodRout")
+const Oder = require("./routs/orderRout")
+
+
 //receve para in body
 app.use(express.json())
 app.use(express.static("public"))
@@ -44,6 +49,9 @@ app.use('/api/event',EventRout)
 app.use("/api/eventres" , ResRout)
 app.use('/api/feedback',feedbacks)
 
+app.use('/api/foods',Foods)
+app.use('/api/order',Oder)
+
 app.use('/employee', require('./routs/employee.route'));
 app.use('/inventory', require('./routs/inventory.route'));
 app.use('/inventoryOrders', require('./routs/inventoryOrders.route'));
@@ -51,6 +59,7 @@ app.use('/customer', require('./routs/customer.route'));
 app.use('/customerFeedback', require('./routs/customerFeedback.route'));
 app.use('/leave', require('./routs/leave.route'));
 app.use('/user', require('./routs/user.route'));
+
 
 const port = process.env.PORT || 5000
 
